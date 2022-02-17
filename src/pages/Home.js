@@ -1,12 +1,37 @@
 import React, {useEffect} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {getUser} from '../redux/apiCalls';
+import {getUser, getEntry} from '../redux/apiCalls';
 import Header from './../components/Header';
+import DataTable from './../components/DataTable';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {StatusBar} from 'react-native';
 
-const Home = ({navigation}) => {
+const Home = () => {
   const user = useSelector(state => state.user.currentUser);
   const dispatch = useDispatch();
+
+  const Month = [];
+  Month[0] = 'January';
+  Month[1] = 'February';
+  Month[2] = 'March';
+  Month[3] = 'April';
+  Month[4] = 'May';
+  Month[5] = 'June';
+  Month[6] = 'July';
+  Month[7] = 'August';
+  Month[8] = 'September';
+  Month[9] = 'October';
+  Month[10] = 'November';
+  Month[11] = 'December';
+
+  const d = new Date();
+  let month = Month[d.getMonth()];
+  let monthId = d.getMonth();
+  let year = d.getFullYear();
+
+  useEffect(() => {
+    getEntry(user.username, monthId, year, dispatch);
+  }, [user, dispatch, monthId, year]);
 
   useEffect(() => {
     getUser(user.username, dispatch);
@@ -14,18 +39,13 @@ const Home = ({navigation}) => {
 
   return (
     <>
-      <Header />
-      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-        <Text>Welcome {user.username}</Text>
-      </View>
+      <SafeAreaView>
+        <StatusBar backgroundColor={user ? '#87CEEB' : '#8fa382'} />
+        <Header />
+        <DataTable month={month} />
+      </SafeAreaView>
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  text: {
-    fontSize: 30,
-  },
-});
 
 export default Home;

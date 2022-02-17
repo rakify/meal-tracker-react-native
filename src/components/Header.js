@@ -1,9 +1,10 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet, Pressable} from 'react-native';
 import {logout} from '../redux/apiCalls';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 const Header = ({from}) => {
+  const dispatch = useDispatch();
   const user = useSelector(state => state.user.currentUser);
   const Month = [];
   Month[0] = 'January';
@@ -23,8 +24,8 @@ const Header = ({from}) => {
   let date = d.getDate();
   let year = d.getFullYear();
 
-  const clearAll = async () => {
-    logout();
+  const clearAll = () => {
+    logout(dispatch);
   };
 
   return (
@@ -73,18 +74,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   user: {
-    backgroundColor: '#8fa382',
-    height: 70,
+    backgroundColor: '#87CEEB',
+    height: 60,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   text: {
     fontSize: 30,
-    textAlign: 'center',
-    color: '#71cad0',
+    color: 'white',
     fontWeight: '600',
-    margin: 20,
   },
   subbody: {
-    flex: 1,
+    height: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },

@@ -8,6 +8,9 @@ import {
   getUserStart,
   getUserSuccess,
   getUserFailure,
+  logoutSuccess,
+  logoutFailure,
+  logoutStart,
 } from './userRedux';
 import {
   getEntriesStart,
@@ -27,11 +30,16 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 axios.defaults.withCredentials = true; //so its can set automatically the cookie i want
-axios.defaults.baseURL = 'http://192.168.31.14:4000/api';
+axios.defaults.baseURL = 'https://eumess.herokuapp.com/api';
 
-export const logout = async () => {
-  // await axios.get('/auth/logout');
-  await AsyncStorage.clear();
+export const logout = async dispatch => {
+  dispatch(logoutStart());
+  try {
+    await AsyncStorage.clear();
+    dispatch(logoutSuccess());
+  } catch (err) {
+    dispatch(logoutFailure());
+  }
 };
 
 export const forgotPass = async email => {
