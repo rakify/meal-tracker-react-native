@@ -30,7 +30,7 @@ const Header = ({from}) => {
 
   return (
     <>
-      {from === 'login' && (
+      {!user && (
         <View style={styles.imageView}>
           <Image
             style={styles.image}
@@ -75,14 +75,14 @@ const styles = StyleSheet.create({
   },
   user: {
     backgroundColor: '#87CEEB',
-    height: 60,
+    height: 30,
     justifyContent: 'center',
     alignItems: 'center',
   },
   text: {
-    fontSize: 30,
+    fontSize: 25,
     color: 'white',
-    fontWeight: '600',
+    fontWeight: '400',
   },
   subbody: {
     height: 20,

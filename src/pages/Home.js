@@ -1,10 +1,10 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {getUser, getEntry} from '../redux/apiCalls';
-import Header from './../components/Header';
-import DataTable from './../components/DataTable';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {StatusBar} from 'react-native';
+import Header from './../components/Header';
+import DataTable from './../components/DataTable';
 
 const Home = () => {
   const user = useSelector(state => state.user.currentUser);
@@ -42,7 +42,7 @@ const Home = () => {
       <SafeAreaView>
         <StatusBar backgroundColor={user ? '#87CEEB' : '#8fa382'} />
         <Header />
-        <DataTable month={month} />
+          <DataTable month={month} />
       </SafeAreaView>
     </>
   );

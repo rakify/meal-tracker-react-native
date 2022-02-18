@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
   },
   TH: {
     width: 100,
-    height: 30,
+    height: 50,
     justifyContent: 'space-evenly',
     alignItems: 'center',
     backgroundColor: '#2263a5',
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
   },
   TD: {
     width: 100,
-    height: 30,
+    height: 50,
     justifyContent: 'space-evenly',
     alignItems: 'center',
     backgroundColor: '#f1f8ff',

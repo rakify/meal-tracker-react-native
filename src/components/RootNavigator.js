@@ -6,6 +6,7 @@ import Login from '../pages/Login';
 import {useSelector} from 'react-redux';
 import Admin from './../pages/Admin';
 import Icon from 'react-native-vector-icons/AntDesign';
+import Calculation from './../pages/Calculation';
 
 const Tab = createBottomTabNavigator();
 
@@ -24,12 +25,24 @@ const RootNavigator = () => {
               name="Home"
               component={Home}
               options={{
-                tabBarLabel: 'Home',
                 tabBarIcon: ({focused, color, size}) => (
                   <Icon
                     name="home"
-                    color={focused ? 'blue' : 'black'}
-                    size={focused ? 25 : 15}
+                    color={focused ? '#03272e' : 'black'}
+                    size={focused ? 30 : 15}
+                  />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="Calculation"
+              component={Calculation}
+              options={{
+                tabBarIcon: ({focused, color, size}) => (
+                  <Icon
+                    name="calculator"
+                    color={focused ? '#03272e' : 'black'}
+                    size={focused ? 30 : 15}
                   />
                 ),
               }}
@@ -42,8 +55,8 @@ const RootNavigator = () => {
                 tabBarIcon: ({focused, color, size}) => (
                   <Icon
                     name="form"
-                    color={focused ? 'blue' : 'black'}
-                    size={focused ? 25 : 15}
+                    color={focused ? '#03272e' : 'black'}
+                    size={focused ? 30 : 15}
                   />
                 ),
               }}
@@ -55,10 +68,7 @@ const RootNavigator = () => {
               name="Login"
               component={Login}
               options={{
-                tabBarLabel: 'Login',
-                tabBarIcon: ({color, size}) => (
-                  <Icon name="login" color="green" size={25} />
-                ),
+                tabBarStyle: {display: 'none'},
               }}
             />
           </Tab.Group>
