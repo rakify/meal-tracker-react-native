@@ -12,7 +12,6 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(true);
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
-  console.log(user);
   const LoginHandler = () => {
     (username.length < 3 || password.length < 3) &&
       Alert.alert(

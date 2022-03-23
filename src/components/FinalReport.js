@@ -1,10 +1,17 @@
 import Icon from 'react-native-vector-icons/AntDesign';
 import React from 'react';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  ActivityIndicator,
+} from 'react-native';
 import {useSelector} from 'react-redux';
 
 const FinalReport = ({admin}) => {
   const entries = useSelector(state => state.data.entries);
+  const loading = useSelector(state => state.data.isFetching);
   const user = useSelector(state => state.user.currentUser);
 
   let allMeals = 0,
@@ -38,63 +45,14 @@ const FinalReport = ({admin}) => {
   let mealRate = allSpent / allMeals;
 
   return (
-    <ScrollView>
-      <View style={styles.title2}>
-        <Text style={styles.title2Text}>Final Calculation</Text>
-      </View>
-      <ScrollView
-        horizontal
-        style={styles.container}
-        contentContainerStyle={{
-          flexDirection: 'column',
-        }}>
-        <View style={styles.TBODY}>
-          <View style={styles.TR}>
-            <View style={styles.TH}>
-              <Text style={styles.THtext}>Total Meals</Text>
-            </View>
-            <View style={styles.TH}>
-              <Text style={styles.THtext}>Total Spent</Text>
-            </View>
-            <View style={styles.TH}>
-              <Text style={styles.THtext}>Total Reserve</Text>
-            </View>
-            <View style={styles.TH}>
-              <Text style={styles.THtext}>Remaining</Text>
-            </View>
-            <View style={styles.TH}>
-              <Text style={styles.THtext}>Meal Rate</Text>
-            </View>
+    <>
+      {loading ? (
+        <ActivityIndicator />
+      ) : (
+        <ScrollView>
+          <View style={styles.title2}>
+            <Text style={styles.title2Text}>Final Calculation</Text>
           </View>
-          <View style={styles.TR}>
-            <View style={styles.TD}>
-              <Text>{allMeals}</Text>
-            </View>
-            <View style={styles.TD}>
-              <Text>{allSpent.toFixed(2)}</Text>
-            </View>
-            <View style={styles.TD}>
-              <Text>{allReserved.toFixed(2)}</Text>
-            </View>
-            <View style={styles.TD}>
-              <Text>{(allReserved - allSpent).toFixed(2)}</Text>
-            </View>
-            <View style={styles.TD}>
-              <Text>{isNaN(mealRate) ? '0.00' : mealRate.toFixed(2)}</Text>
-            </View>
-          </View>
-        </View>
-      </ScrollView>
-
-      {user.members.map((i, j) => (
-        <View key={j}>
-          <View style={styles.title}>
-            <Text style={styles.titleText}>
-              <Icon name="user" size={25} color="#d3c5c5" />
-              {i}
-            </Text>
-          </View>
-
           <ScrollView
             horizontal
             style={styles.container}
@@ -103,43 +61,98 @@ const FinalReport = ({admin}) => {
             }}>
             <View style={styles.TBODY}>
               <View style={styles.TR}>
-                <View style={styles.TH2}>
-                  <Text style={styles.THtext}>Meals</Text>
+                <View style={styles.TH}>
+                  <Text style={styles.THtext}>Total Meals</Text>
                 </View>
-                <View style={styles.TH2}>
-                  <Text style={styles.THtext}>Reserved</Text>
+                <View style={styles.TH}>
+                  <Text style={styles.THtext}>Total Spent</Text>
                 </View>
-                <View style={styles.TH2}>
-                  <Text style={styles.THtext}>Due(-) | Extra(+)</Text>
+                <View style={styles.TH}>
+                  <Text style={styles.THtext}>Total Reserve</Text>
+                </View>
+                <View style={styles.TH}>
+                  <Text style={styles.THtext}>Remaining</Text>
+                </View>
+                <View style={styles.TH}>
+                  <Text style={styles.THtext}>Meal Rate</Text>
                 </View>
               </View>
-            </View>
-            <View style={styles.TBODY}>
               <View style={styles.TR}>
-                <View style={styles.TD2}>
-                  <Text style={styles.TDtext}>{initialMeals[i]}</Text>
+                <View style={styles.TD}>
+                  <Text>{allMeals}</Text>
                 </View>
-                <View style={styles.TD2}>
-                  <Text style={styles.TDtext}>
-                    {initialReserved[i].toFixed(2)}
-                  </Text>
+                <View style={styles.TD}>
+                  <Text>{allSpent.toFixed(2)}</Text>
                 </View>
-                <View style={styles.TD2}>
-                  <Text style={styles.TDtext}>
-                    {isNaN(initialReserved[i] - initialMeals[i] * mealRate)
-                      ? '0.00'
-                      : (
-                          initialReserved[i] -
-                          initialMeals[i] * mealRate
-                        ).toFixed(2)}
-                  </Text>
+                <View style={styles.TD}>
+                  <Text>{allReserved.toFixed(2)}</Text>
+                </View>
+                <View style={styles.TD}>
+                  <Text>{(allReserved - allSpent).toFixed(2)}</Text>
+                </View>
+                <View style={styles.TD}>
+                  <Text>{isNaN(mealRate) ? '0.00' : mealRate.toFixed(2)}</Text>
                 </View>
               </View>
             </View>
           </ScrollView>
-        </View>
-      ))}
-    </ScrollView>
+
+          {user.members.map((i, j) => (
+            <View key={j}>
+              <View style={styles.title}>
+                <Text style={styles.titleText}>
+                  <Icon name="user" size={25} color="#d3c5c5" />
+                  {i}
+                </Text>
+              </View>
+
+              <ScrollView
+                horizontal
+                style={styles.container}
+                contentContainerStyle={{
+                  flexDirection: 'column',
+                }}>
+                <View style={styles.TBODY}>
+                  <View style={styles.TR}>
+                    <View style={styles.TH2}>
+                      <Text style={styles.THtext}>Meals</Text>
+                    </View>
+                    <View style={styles.TH2}>
+                      <Text style={styles.THtext}>Reserved</Text>
+                    </View>
+                    <View style={styles.TH2}>
+                      <Text style={styles.THtext}>Due(-) | Extra(+)</Text>
+                    </View>
+                  </View>
+                </View>
+                <View style={styles.TBODY}>
+                  <View style={styles.TR}>
+                    <View style={styles.TD2}>
+                      <Text style={styles.TDtext}>{initialMeals[i]}</Text>
+                    </View>
+                    <View style={styles.TD2}>
+                      <Text style={styles.TDtext}>
+                        {initialReserved[i].toFixed(2)}
+                      </Text>
+                    </View>
+                    <View style={styles.TD2}>
+                      <Text style={styles.TDtext}>
+                        {isNaN(initialReserved[i] - initialMeals[i] * mealRate)
+                          ? '0.00'
+                          : (
+                              initialReserved[i] -
+                              initialMeals[i] * mealRate
+                            ).toFixed(2)}
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+              </ScrollView>
+            </View>
+          ))}
+        </ScrollView>
+      )}
+    </>
   );
 };
 

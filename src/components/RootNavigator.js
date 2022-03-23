@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from '../pages/Home';
@@ -7,19 +7,20 @@ import {useSelector} from 'react-redux';
 import Admin from './../pages/Admin';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Calculation from './../pages/Calculation';
+import LoadingScreen from './LoadingScreen';
 
 const Tab = createBottomTabNavigator();
 
 const RootNavigator = () => {
-  const user = useSelector(state => state.user.currentUser);
-
+  const user = useSelector(state => state.user);
+  
   return (
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={{
           headerShown: false,
         }}>
-        {user ? (
+        {user.currentUser ? (
           <Tab.Group>
             <Tab.Screen
               name="Home"
@@ -66,7 +67,7 @@ const RootNavigator = () => {
           <Tab.Group>
             <Tab.Screen
               name="Login"
-              component={Login}
+              component={user.isFetching ? LoadingScreen : Login}
               options={{
                 tabBarStyle: {display: 'none'},
               }}
