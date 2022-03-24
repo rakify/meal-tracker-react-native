@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import RNBootSplash from 'react-native-bootsplash';
 import Home from '../pages/Home';
 import Login from '../pages/Login';
 import {useSelector} from 'react-redux';
@@ -13,7 +14,11 @@ const Tab = createBottomTabNavigator();
 
 const RootNavigator = () => {
   const user = useSelector(state => state.user);
-  
+
+  useEffect(() => {
+    RNBootSplash.hide({fade: true});
+  }, []);
+
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -30,7 +35,7 @@ const RootNavigator = () => {
                   <Icon
                     name="home"
                     color={focused ? '#03272e' : 'black'}
-                    size={focused ? 30 : 15}
+                    size={focused ? 20 : 15}
                   />
                 ),
               }}
@@ -43,7 +48,7 @@ const RootNavigator = () => {
                   <Icon
                     name="calculator"
                     color={focused ? '#03272e' : 'black'}
-                    size={focused ? 30 : 15}
+                    size={focused ? 20 : 15}
                   />
                 ),
               }}
@@ -57,7 +62,7 @@ const RootNavigator = () => {
                   <Icon
                     name="form"
                     color={focused ? '#03272e' : 'black'}
-                    size={focused ? 30 : 15}
+                    size={focused ? 20 : 15}
                   />
                 ),
               }}
