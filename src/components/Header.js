@@ -36,13 +36,13 @@ const Header = ({from}) => {
             style={styles.image}
             source={{uri: 'https://i.ibb.co/GngZqJH/Meal-Tracker.png'}}
           />
-          <Text style={styles.text}>Mess Meal Tracker</Text>
+          <Text style={styles.text}>Meal Tracker</Text>
         </View>
       )}
       {user && (
         <>
           <View style={styles.user}>
-            <Text style={styles.text}>Mess Meal Tracker</Text>
+            <Text style={styles.text}>Meal Tracker</Text>
           </View>
           <View style={styles.subbody}>
             <View>
@@ -66,12 +66,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#8fa382',
+    paddingBottom: 20,
   },
   image: {
-    width: 150,
-    height: 150,
-    marginTop: 20,
-    alignItems: 'center',
+    width: 200,
+    height: 200,
   },
   user: {
     backgroundColor: '#87CEEB',
@@ -82,7 +81,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 25,
     color: 'white',
-    fontWeight: '400',
+    fontWeight: '500',
   },
   subbody: {
     height: 20,

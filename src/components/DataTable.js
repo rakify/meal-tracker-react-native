@@ -92,6 +92,7 @@ const styles = StyleSheet.create({
   },
   container: {
     backgroundColor: '#fff',
+    paddingBottom: 100,
   },
   TBODY: {},
   TR: {

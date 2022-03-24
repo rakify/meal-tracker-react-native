@@ -8,17 +8,19 @@ import Admin from './../pages/Admin';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Calculation from './../pages/Calculation';
 import LoadingScreen from './LoadingScreen';
+import Register from '../pages/Register';
 
 const Tab = createBottomTabNavigator();
 
 const RootNavigator = () => {
   const user = useSelector(state => state.user);
-  
+
   return (
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={{
           headerShown: false,
+          tabBarHideOnKeyboard: true,
         }}>
         {user.currentUser ? (
           <Tab.Group>
@@ -30,7 +32,7 @@ const RootNavigator = () => {
                   <Icon
                     name="home"
                     color={focused ? '#03272e' : 'black'}
-                    size={focused ? 30 : 15}
+                    size={focused ? 20 : 15}
                   />
                 ),
               }}
@@ -43,7 +45,7 @@ const RootNavigator = () => {
                   <Icon
                     name="calculator"
                     color={focused ? '#03272e' : 'black'}
-                    size={focused ? 30 : 15}
+                    size={focused ? 20 : 15}
                   />
                 ),
               }}
@@ -57,7 +59,7 @@ const RootNavigator = () => {
                   <Icon
                     name="form"
                     color={focused ? '#03272e' : 'black'}
-                    size={focused ? 30 : 15}
+                    size={focused ? 20 : 15}
                   />
                 ),
               }}
@@ -69,7 +71,28 @@ const RootNavigator = () => {
               name="Login"
               component={user.isFetching ? LoadingScreen : Login}
               options={{
-                tabBarStyle: {display: 'none'},
+                tabBarLabel: 'Login',
+                tabBarIcon: ({focused, color, size}) => (
+                  <Icon
+                    name="login"
+                    color={focused ? '#03272e' : 'black'}
+                    size={focused ? 20 : 15}
+                  />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="Register"
+              component={user.isFetching ? LoadingScreen : Register}
+              options={{
+                tabBarLabel: 'Register',
+                tabBarIcon: ({focused, color, size}) => (
+                  <Icon
+                    name="enter"
+                    color={focused ? '#03272e' : 'black'}
+                    size={focused ? 20 : 15}
+                  />
+                ),
               }}
             />
           </Tab.Group>

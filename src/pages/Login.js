@@ -69,18 +69,10 @@ const Login = () => {
         </View>
 
         <Button
-          title={user.isFetching ? 'Please Wait..' : 'Login'}
+          title={user.isFetching ? 'Wait..' : 'Login'}
           color="#1eb900"
           onPressFunction={LoginHandler}
         />
-        {user.isFetching && (
-          <View>
-            <Text style={{textAlign: 'center'}}>
-              Since this app uses free server to run, it might take up to 1
-              minute to take you to the Homepage.
-            </Text>
-          </View>
-        )}
       </View>
     </>
   );
@@ -88,13 +80,15 @@ const Login = () => {
 
 const styles = StyleSheet.create({
   body: {
+    paddingTop: 50,
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
     backgroundColor: 'white',
   },
   inputField: {
     flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
     width: 320,
     borderRadius: 5,
     margin: 5,
