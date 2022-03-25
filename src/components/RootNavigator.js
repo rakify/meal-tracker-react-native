@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 import RNBootSplash from 'react-native-bootsplash';
 import Home from '../pages/Home';
 import Login from '../pages/Login';
@@ -10,7 +10,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import Calculation from './../pages/Calculation';
 import LoadingScreen from './LoadingScreen';
 
-const Tab = createBottomTabNavigator();
+const Drawer = createDrawerNavigator();
 
 const RootNavigator = () => {
   const user = useSelector(state => state.user);
@@ -21,13 +21,14 @@ const RootNavigator = () => {
 
   return (
     <NavigationContainer>
-      <Tab.Navigator
+      <Drawer.Navigator
         screenOptions={{
           headerShown: false,
+          tabBarHideOnKeyboard: true,
         }}>
         {user.currentUser ? (
-          <Tab.Group>
-            <Tab.Screen
+          <Drawer.Group>
+            <Drawer.Screen
               name="Home"
               component={Home}
               options={{
@@ -40,7 +41,7 @@ const RootNavigator = () => {
                 ),
               }}
             />
-            <Tab.Screen
+            <Drawer.Screen
               name="Calculation"
               component={Calculation}
               options={{
@@ -53,7 +54,7 @@ const RootNavigator = () => {
                 ),
               }}
             />
-            <Tab.Screen
+            <Drawer.Screen
               name="Admin"
               component={Admin}
               options={{
@@ -67,19 +68,19 @@ const RootNavigator = () => {
                 ),
               }}
             />
-          </Tab.Group>
+          </Drawer.Group>
         ) : (
-          <Tab.Group>
-            <Tab.Screen
+          <Drawer.Group>
+            <Drawer.Screen
               name="Login"
               component={user.isFetching ? LoadingScreen : Login}
               options={{
                 tabBarStyle: {display: 'none'},
               }}
             />
-          </Tab.Group>
+          </Drawer.Group>
         )}
-      </Tab.Navigator>
+      </Drawer.Navigator>
     </NavigationContainer>
   );
 };
