@@ -9,6 +9,7 @@ import Admin from './../pages/Admin';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Calculation from './../pages/Calculation';
 import LoadingScreen from './LoadingScreen';
+import Register from '../pages/Register';
 
 const Drawer = createDrawerNavigator();
 
@@ -23,8 +24,9 @@ const RootNavigator = () => {
     <NavigationContainer>
       <Drawer.Navigator
         screenOptions={{
-          headerShown: false,
-          tabBarHideOnKeyboard: true,
+          headerStyle: {
+            backgroundColor: user.currentUser ? '#87ceeb' : '#f8f8f8',
+          },
         }}>
         {user.currentUser ? (
           <Drawer.Group>
@@ -32,7 +34,7 @@ const RootNavigator = () => {
               name="Home"
               component={Home}
               options={{
-                tabBarIcon: ({focused, color, size}) => (
+                drawerIcon: ({focused, color, size}) => (
                   <Icon
                     name="home"
                     color={focused ? '#03272e' : 'black'}
@@ -45,7 +47,7 @@ const RootNavigator = () => {
               name="Calculation"
               component={Calculation}
               options={{
-                tabBarIcon: ({focused, color, size}) => (
+                drawerIcon: ({focused, color, size}) => (
                   <Icon
                     name="calculator"
                     color={focused ? '#03272e' : 'black'}
@@ -55,11 +57,10 @@ const RootNavigator = () => {
               }}
             />
             <Drawer.Screen
-              name="Admin"
+              name="Manager"
               component={Admin}
               options={{
-                tabBarLabel: 'Manage',
-                tabBarIcon: ({focused, color, size}) => (
+                drawerIcon: ({focused, color, size}) => (
                   <Icon
                     name="form"
                     color={focused ? '#03272e' : 'black'}
@@ -75,7 +76,26 @@ const RootNavigator = () => {
               name="Login"
               component={user.isFetching ? LoadingScreen : Login}
               options={{
-                tabBarStyle: {display: 'none'},
+                DrawerIcon: ({focused, color, size}) => (
+                  <Icon
+                    name="login"
+                    color={focused ? '#03272e' : 'black'}
+                    size={focused ? 20 : 15}
+                  />
+                ),
+              }}
+            />
+            <Drawer.Screen
+              name="Register"
+              component={user.isFetching ? LoadingScreen : Register}
+              options={{
+                DrawerIcon: ({focused, color, size}) => (
+                  <Icon
+                    name="enter"
+                    color={focused ? '#03272e' : 'black'}
+                    size={focused ? 20 : 15}
+                  />
+                ),
               }}
             />
           </Drawer.Group>

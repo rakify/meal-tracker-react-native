@@ -34,16 +34,12 @@ const Header = ({from}) => {
         <View style={styles.imageView}>
           <Image
             style={styles.image}
-            source={{uri: 'https://i.ibb.co/GngZqJH/Meal-Tracker.png'}}
+            source={{uri: 'https://i.ibb.co/K78YHkj/meal-tracker.png'}}
           />
-          <Text style={styles.text}>Mess Meal Tracker</Text>
         </View>
       )}
       {user && (
         <>
-          <View style={styles.user}>
-            <Text style={styles.text}>Mess Meal Tracker</Text>
-          </View>
           <View style={styles.subbody}>
             <View>
               <Text>Today is {month + ' ' + date + ', ' + year}</Text>
@@ -65,27 +61,20 @@ const styles = StyleSheet.create({
   imageView: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#8fa382',
+    backgroundColor: '#f8f8f8',
   },
   image: {
-    width: 150,
-    height: 150,
-    marginTop: 20,
-    alignItems: 'center',
-  },
-  user: {
-    backgroundColor: '#87CEEB',
-    height: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: 298,
+    height: 218,
   },
   text: {
     fontSize: 25,
-    color: 'white',
+    color: 'black',
     fontWeight: '400',
   },
   subbody: {
-    height: 20,
+    backgroundColor: '#87ceeb',
+    height: 30,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
