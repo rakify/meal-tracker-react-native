@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from '../pages/Home';
@@ -9,6 +9,8 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import Calculation from './../pages/Calculation';
 import LoadingScreen from './LoadingScreen';
 import Register from '../pages/Register';
+import UpdateUser from '../pages/UpdateUser';
+import UpdateKey from './../pages/UpdateKey';
 
 const Tab = createBottomTabNavigator();
 
@@ -55,6 +57,34 @@ const RootNavigator = () => {
               component={Admin}
               options={{
                 tabBarLabel: 'Manage',
+                tabBarIcon: ({focused, color, size}) => (
+                  <Icon
+                    name="form"
+                    color={focused ? '#03272e' : 'black'}
+                    size={focused ? 20 : 15}
+                  />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="UpdateUser"
+              component={UpdateUser}
+              options={{
+                tabBarLabel: 'Update User',
+                tabBarIcon: ({focused, color, size}) => (
+                  <Icon
+                    name="form"
+                    color={focused ? '#03272e' : 'black'}
+                    size={focused ? 20 : 15}
+                  />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="UpdateKey"
+              component={UpdateKey}
+              options={{
+                tabBarLabel: 'Update Key',
                 tabBarIcon: ({focused, color, size}) => (
                   <Icon
                     name="form"

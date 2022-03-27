@@ -49,13 +49,12 @@ const FinalReport = ({admin}) => {
       {loading ? (
         <ActivityIndicator />
       ) : (
-        <ScrollView>
+        <ScrollView style={styles.container}>
           <View style={styles.title2}>
             <Text style={styles.title2Text}>Final Calculation</Text>
           </View>
           <ScrollView
             horizontal
-            style={styles.container}
             contentContainerStyle={{
               flexDirection: 'column',
             }}>
@@ -98,17 +97,17 @@ const FinalReport = ({admin}) => {
           </ScrollView>
 
           {user.members.map((i, j) => (
-            <View key={j}>
+            <View key={j} style={styles.container2}>
               <View style={styles.title}>
                 <Text style={styles.titleText}>
-                  <Icon name="user" size={25} color="#d3c5c5" />
+                  <Icon name="user" size={15} color="#d3c5c5" />
                   {i}
                 </Text>
               </View>
 
               <ScrollView
                 horizontal
-                style={styles.container}
+                style={styles.container2}
                 contentContainerStyle={{
                   flexDirection: 'column',
                 }}>
@@ -157,6 +156,13 @@ const FinalReport = ({admin}) => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#fff',
+    alignSelf: 'center',
+  },
+  container2: {
+    margin: 10,
+  },
   title2: {
     alignSelf: 'center',
     margin: 7,
@@ -168,7 +174,8 @@ const styles = StyleSheet.create({
   title2Text: {
     color: 'black',
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 15,
+    textDecorationLine: 'underline',
   },
   titleText: {
     color: 'black',
@@ -176,10 +183,6 @@ const styles = StyleSheet.create({
     fontSize: 17,
     fontStyle: 'italic',
     marginLeft: 10,
-  },
-  container: {
-    backgroundColor: '#fff',
-    alignSelf: 'center',
   },
   TBODY: {},
   TR: {
@@ -189,7 +192,7 @@ const styles = StyleSheet.create({
   },
   TH: {
     width: 100,
-    height: 50,
+    height: 20,
     justifyContent: 'space-evenly',
     alignItems: 'center',
     backgroundColor: '#2263a5',
@@ -203,24 +206,24 @@ const styles = StyleSheet.create({
   },
   TD: {
     width: 100,
-    height: 50,
+    height: 30,
     justifyContent: 'space-evenly',
     alignItems: 'center',
     backgroundColor: '#f1f8ff',
   },
   TH2: {
-    width: 150,
-    height: 50,
-    justifyContent: 'space-evenly',
+    width: 100,
+    height: 20,
+    justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#697e94',
     borderLeftWidth: 1,
     borderColor: '#f1f8ff',
   },
   TD2: {
-    width: 150,
-    height: 50,
-    justifyContent: 'space-evenly',
+    width: 100,
+    height: 20,
+    justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#f1f8ff',
   },

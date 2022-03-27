@@ -29,13 +29,6 @@ const EntryForm = () => {
     date: date,
     admin_key: '',
   });
-  const [prompt, setPrompt] = useState(false);
-  const [keyResponse, setKeyResponse] = useState('');
-  const [error, setError] = useState({}); // after submitting show result
-  const [confirm, setConfirm] = useState('Confirm'); // after confirming key show loading animation
-  const [loading, setLoading] = useState(false); // after submitting show loading animation
-  const [submit, setSubmit] = useState('Submit');
-  const [modalOpen, setModalOpen] = useState(false);
   const [showMeals, setShowMeals] = useState(false);
   const [showBy, setShowBy] = useState(false);
   //set initialMeals per member as 0
@@ -56,8 +49,6 @@ const EntryForm = () => {
   };
 
   const handleSubmit = () => {
-    setLoading(true);
-    console.log(submit, loading);
     let totalMeals = 0;
     for (const i in meals) {
       totalMeals += meals[i];
@@ -72,18 +63,10 @@ const EntryForm = () => {
           : Alert.alert('Success', 'Entries updated successfully.'),
       );
     }
-    setLoading(false);
-  };
-
-  const requestKey = () => {
-    setConfirm(`Please Wait..`);
-    updateKey(user._id).then(res => setKeyResponse(res.request.responseText));
   };
 
   return (
-    <ScrollView
-      style={styles.container}
-      contentContainerStyle={{alignItems: 'center'}}>
+    <ScrollView style={styles.container}>
       <View style={styles.title}>
         <Text style={styles.titleText}>Submit Todays Entry</Text>
       </View>
@@ -108,9 +91,9 @@ const EntryForm = () => {
         />
       </View>
 
-      <Pressable style={styles.inputField} onPress={() => setShowBy(!showBy)}>
+      <Pressable style={styles.selectField} onPress={() => setShowBy(!showBy)}>
         <Text style={styles.caption}>
-          By: * (Selected: {inputs.by !== '' ? inputs.by : 'none'})
+          By * (Selected: {inputs.by !== '' ? inputs.by : 'none'})
         </Text>
         <Icon name={showBy ? 'upcircle' : 'downcircle'} size={25} />
       </Pressable>
@@ -133,7 +116,7 @@ const EntryForm = () => {
       )}
 
       <Pressable
-        style={styles.inputField}
+        style={styles.selectField}
         onPress={() => setShowMeals(!showMeals)}>
         <Text style={styles.caption}>Meals</Text>
         <Icon name={showMeals ? 'upcircle' : 'downcircle'} size={25} />
@@ -168,7 +151,8 @@ const EntryForm = () => {
         />
       </View>
       <Button
-        title={loading ? 'Wait...' : 'Submit'}
+        style={{alignSelf: 'center'}}
+        title={'Submit'}
         color="#1eb900"
         onPressFunction={handleSubmit}
       />
@@ -189,44 +173,40 @@ const styles = StyleSheet.create({
     color: 'black',
     fontWeight: 'bold',
     fontSize: 15,
+    textDecorationLine: 'underline',
   },
   caption: {
-    //text
     marginRight: 20,
+    fontWeight: 'bold',
   },
   inputField: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 200,
     marginBottom: 10,
+    marginLeft: 20,
   },
   input: {
-    fontSize: 20,
-    width: 80,
-    height: 40,
-    marginLeft: 10,
+    fontSize: 15,
+    width: 200,
+    height: 35,
     paddingLeft: 10,
     paddingRight: 10,
     borderWidth: 0.5,
     borderColor: '#555',
-    borderRadius: 3,
   },
-  inputColumn: {
-    fontSize: 15,
-    width: 40,
-    height: 40,
-    margin: 0,
-    textAlign: 'center',
-    borderWidth: 0.5,
-    borderColor: '#555',
-    borderRadius: 5,
+  selectField: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginLeft: 20,
+    marginRight: 20,
+    marginBottom: 10,
+    width: 200,
   },
   selectParent: {
     flex: 1,
     flexDirecton: 'column',
     justifyContent: 'space-between',
     width: 300,
+    marginLeft: 20,
+    marginRight: 20,
   },
   selectChild: {
     flexDirection: 'row',

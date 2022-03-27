@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
   },
   TH: {
     width: 100,
-    height: 50,
+    height: 30,
     justifyContent: 'space-evenly',
     alignItems: 'center',
     backgroundColor: '#2263a5',
