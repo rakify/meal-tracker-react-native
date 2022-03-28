@@ -24,7 +24,50 @@ const RootNavigator = () => {
           headerShown: false,
           tabBarHideOnKeyboard: true,
         }}>
-        {user.currentUser ? (
+        {!user.currentUser ? (
+          <Tab.Group>
+            <Tab.Screen
+              name="Login"
+              component={user.isFetching ? LoadingScreen : Login}
+              options={{
+                tabBarIcon: ({focused, color, size}) => (
+                  <Icon
+                    name="login"
+                    color={focused ? '#03272e' : 'black'}
+                    size={focused ? 20 : 15}
+                  />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="Register"
+              component={user.isFetching ? LoadingScreen : Register}
+              options={{
+                tabBarIcon: ({focused, color, size}) => (
+                  <Icon
+                    name="enter"
+                    color={focused ? '#03272e' : 'black'}
+                    size={focused ? 20 : 15}
+                  />
+                ),
+              }}
+            />
+          </Tab.Group>
+        ) : user.currentUser.members.length === 0 ? (
+          <Tab.Screen
+            name="UpdateUser"
+            component={UpdateUser}
+            options={{
+              tabBarIcon: ({focused, color, size}) => (
+                <Icon
+                  name="heart"
+                  color={focused ? '#03272e' : 'black'}
+                  size={focused ? 20 : 15}
+                />
+              ),
+            }}
+          />
+        ) : (
           <Tab.Group>
             <Tab.Screen
               name="Home"
@@ -56,7 +99,6 @@ const RootNavigator = () => {
               name="Admin"
               component={Admin}
               options={{
-                tabBarLabel: 'Manage',
                 tabBarIcon: ({focused, color, size}) => (
                   <Icon
                     name="form"
@@ -70,7 +112,6 @@ const RootNavigator = () => {
               name="UpdateUser"
               component={UpdateUser}
               options={{
-                tabBarLabel: 'Update User',
                 tabBarIcon: ({focused, color, size}) => (
                   <Icon
                     name="form"
@@ -84,41 +125,9 @@ const RootNavigator = () => {
               name="UpdateKey"
               component={UpdateKey}
               options={{
-                tabBarLabel: 'Update Key',
                 tabBarIcon: ({focused, color, size}) => (
                   <Icon
                     name="form"
-                    color={focused ? '#03272e' : 'black'}
-                    size={focused ? 20 : 15}
-                  />
-                ),
-              }}
-            />
-          </Tab.Group>
-        ) : (
-          <Tab.Group>
-            <Tab.Screen
-              name="Login"
-              component={user.isFetching ? LoadingScreen : Login}
-              options={{
-                tabBarLabel: 'Login',
-                tabBarIcon: ({focused, color, size}) => (
-                  <Icon
-                    name="login"
-                    color={focused ? '#03272e' : 'black'}
-                    size={focused ? 20 : 15}
-                  />
-                ),
-              }}
-            />
-            <Tab.Screen
-              name="Register"
-              component={user.isFetching ? LoadingScreen : Register}
-              options={{
-                tabBarLabel: 'Register',
-                tabBarIcon: ({focused, color, size}) => (
-                  <Icon
-                    name="enter"
                     color={focused ? '#03272e' : 'black'}
                     size={focused ? 20 : 15}
                   />

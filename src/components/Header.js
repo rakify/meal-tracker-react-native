@@ -34,9 +34,8 @@ const Header = ({from}) => {
         <View style={styles.imageView}>
           <Image
             style={styles.image}
-            source={{uri: 'https://i.ibb.co/GngZqJH/Meal-Tracker.png'}}
+            source={{uri: 'https://i.ibb.co/JrnGG6g/meal-tracker.png'}}
           />
-          <Text style={styles.text}>Meal Tracker</Text>
         </View>
       )}
       {user && (
@@ -65,12 +64,12 @@ const styles = StyleSheet.create({
   imageView: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#8fa382',
+    backgroundColor: '#f8f8f8',
     paddingBottom: 20,
   },
   image: {
-    width: 200,
-    height: 200,
+    width: 300,
+    height: 220,
   },
   user: {
     backgroundColor: '#87CEEB',

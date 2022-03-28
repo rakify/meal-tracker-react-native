@@ -75,14 +75,14 @@ const EntryForm = () => {
           style={styles.input}
           placeholder="Money Spent"
           onChangeText={value => handleChange('spent', value)}
-          placeholderTextColor="green"
+          placeholderTextColor="#0f6a94"
         />
         <TextInput
           keyboardType="number-pad"
           style={styles.input}
           placeholder="Reserved Money"
           onChangeText={value => handleChange('reserved', value)}
-          placeholderTextColor="green"
+          placeholderTextColor="#0f6a94"
         />
       </View>
 
@@ -92,15 +92,20 @@ const EntryForm = () => {
           style={styles.input}
           placeholder="Manager Key*"
           onChangeText={value => handleChange('admin_key', value)}
-          placeholderTextColor="green"
+          placeholderTextColor="#0f6a94"
         />
       </View>
 
       <Pressable style={styles.selectField} onPress={() => setShowBy(!showBy)}>
         <Text style={styles.caption}>
-          By * (Selected: {inputs.by !== '' ? inputs.by : 'none'})
+          <Icon name="form" size={20} color="#0f6a94" /> By * (Selected:{' '}
+          {inputs.by !== '' ? inputs.by : 'none'})
         </Text>
-        <Icon name={showBy ? 'upcircle' : 'downcircle'} size={25} />
+        <Icon
+          name={showBy ? 'upcircle' : 'downcircle'}
+          size={25}
+          color="#0f6a94"
+        />
       </Pressable>
       {showBy && (
         <View style={styles.selectParent}>
@@ -111,9 +116,9 @@ const EntryForm = () => {
               key={i}>
               <Text style={inputs.by === i && {fontWeight: 'bold'}}>{i}</Text>
               {inputs.by === i ? (
-                <Icon name="checkcircle" size={25} color="black" />
+                <Icon name="pushpin" size={25} color="black" />
               ) : (
-                <Icon name="checkcircleo" size={25} color="green" />
+                <Icon name="pushpino" size={25} color="#0f6a94" />
               )}
             </Pressable>
           ))}
@@ -122,8 +127,14 @@ const EntryForm = () => {
       <Pressable
         style={styles.selectField}
         onPress={() => setShowMeals(!showMeals)}>
-        <Text style={styles.caption}>Meals</Text>
-        <Icon name={showMeals ? 'upcircle' : 'downcircle'} size={25} />
+        <Text style={styles.caption}>
+          <Icon name="database" size={20} color="#0f6a94" /> Meals
+        </Text>
+        <Icon
+          name={showMeals ? 'upcircle' : 'downcircle'}
+          size={25}
+          color="#0f6a94"
+        />
       </Pressable>
       {showMeals && (
         <View style={styles.selectParent}>
@@ -132,11 +143,11 @@ const EntryForm = () => {
               <Text>{i}</Text>
               <View style={styles.selectRight}>
                 <Pressable onPress={() => handleMeals(i, meals[i] - 1, 'dec')}>
-                  <Icon name="minuscircle" size={25} color="green" />
+                  <Icon name="minuscircle" size={25} color="#0f6a94" />
                 </Pressable>
                 <Text style={{margin: 10}}>{meals[i]}</Text>
                 <Pressable onPress={() => handleMeals(i, meals[i] + 1, 'inc')}>
-                  <Icon name="pluscircle" size={25} color="green" />
+                  <Icon name="pluscircle" size={25} color="#0f6a94" />
                 </Pressable>
               </View>
             </View>
@@ -170,6 +181,7 @@ const styles = StyleSheet.create({
   caption: {
     marginRight: 20,
     fontWeight: 'bold',
+    color: '#0f6a94',
   },
   inputField: {
     marginBottom: 10,
