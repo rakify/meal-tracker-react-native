@@ -1,7 +1,7 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {login} from '../redux/apiCalls';
 import React, {useState} from 'react';
-import {View, StyleSheet, TextInput, Alert} from 'react-native';
+import {View, StyleSheet, TextInput, Alert, Text} from 'react-native';
 import Header from '../components/Header';
 import Button from '../utils/Button';
 import Icon from 'react-native-vector-icons/AntDesign';

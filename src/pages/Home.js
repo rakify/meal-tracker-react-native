@@ -40,7 +40,7 @@ const Home = () => {
   return (
     <>
       <SafeAreaView>
-        <StatusBar backgroundColor={user ? '#87ceeb' : '#f8f8f8'} />
+        <StatusBar backgroundColor={user ? '#87CEEB' : '#8fa382'} />
         <Header />
         <DataTable month={month} />
       </SafeAreaView>

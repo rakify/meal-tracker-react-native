@@ -10,6 +10,8 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import Calculation from './../pages/Calculation';
 import LoadingScreen from './LoadingScreen';
 import Register from '../pages/Register';
+import UpdateUser from '../pages/UpdateUser';
+import UpdateKey from './../pages/UpdateKey';
 
 const Drawer = createDrawerNavigator();
 
@@ -59,6 +61,32 @@ const RootNavigator = () => {
             <Drawer.Screen
               name="Manager"
               component={Admin}
+              options={{
+                drawerIcon: ({focused, color, size}) => (
+                  <Icon
+                    name="form"
+                    color={focused ? '#03272e' : 'black'}
+                    size={focused ? 20 : 15}
+                  />
+                ),
+              }}
+            />
+            <Drawer.Screen
+              name="UpdateUser"
+              component={UpdateUser}
+              options={{
+                drawerIcon: ({focused, color, size}) => (
+                  <Icon
+                    name="form"
+                    color={focused ? '#03272e' : 'black'}
+                    size={focused ? 20 : 15}
+                  />
+                ),
+              }}
+            />
+            <Drawer.Screen
+              name="UpdateKey"
+              component={UpdateKey}
               options={{
                 drawerIcon: ({focused, color, size}) => (
                   <Icon
