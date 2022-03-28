@@ -30,7 +30,50 @@ const RootNavigator = () => {
             backgroundColor: user.currentUser ? '#87ceeb' : '#f8f8f8',
           },
         }}>
-        {user.currentUser ? (
+        {!user.currentUser ? (
+          <Drawer.Group>
+            <Drawer.Screen
+              name="Login"
+              component={user.isFetching ? LoadingScreen : Login}
+              options={{
+                drawerIcon: ({focused, color, size}) => (
+                  <Icon
+                    name="login"
+                    color={focused ? '#03272e' : 'black'}
+                    size={focused ? 20 : 15}
+                  />
+                ),
+              }}
+            />
+            <Drawer.Screen
+              name="Register"
+              component={user.isFetching ? LoadingScreen : Register}
+              options={{
+                drawerIcon: ({focused, color, size}) => (
+                  <Icon
+                    name="enter"
+                    color={focused ? '#03272e' : 'black'}
+                    size={focused ? 20 : 15}
+                  />
+                ),
+              }}
+            />
+          </Drawer.Group>
+        ) : user.currentUser.members.length === 0 ? (
+          <Drawer.Screen
+            name="Welcome"
+            component={UpdateUser}
+            options={{
+              drawerIcon: ({focused, color, size}) => (
+                <Icon
+                  name="heart"
+                  color={focused ? '#03272e' : 'black'}
+                  size={focused ? 20 : 15}
+                />
+              ),
+            }}
+          />
+        ) : (
           <Drawer.Group>
             <Drawer.Screen
               name="Home"
@@ -46,7 +89,7 @@ const RootNavigator = () => {
               }}
             />
             <Drawer.Screen
-              name="Calculation"
+              name="Calculations"
               component={Calculation}
               options={{
                 drawerIcon: ({focused, color, size}) => (
@@ -59,12 +102,12 @@ const RootNavigator = () => {
               }}
             />
             <Drawer.Screen
-              name="Manager"
+              name="Update Meals"
               component={Admin}
               options={{
                 drawerIcon: ({focused, color, size}) => (
                   <Icon
-                    name="form"
+                    name="edit"
                     color={focused ? '#03272e' : 'black'}
                     size={focused ? 20 : 15}
                   />
@@ -72,12 +115,12 @@ const RootNavigator = () => {
               }}
             />
             <Drawer.Screen
-              name="UpdateUser"
+              name="Update Info"
               component={UpdateUser}
               options={{
                 drawerIcon: ({focused, color, size}) => (
                   <Icon
-                    name="form"
+                    name="profile"
                     color={focused ? '#03272e' : 'black'}
                     size={focused ? 20 : 15}
                   />
@@ -85,41 +128,12 @@ const RootNavigator = () => {
               }}
             />
             <Drawer.Screen
-              name="UpdateKey"
+              name="Reset Key"
               component={UpdateKey}
               options={{
                 drawerIcon: ({focused, color, size}) => (
                   <Icon
-                    name="form"
-                    color={focused ? '#03272e' : 'black'}
-                    size={focused ? 20 : 15}
-                  />
-                ),
-              }}
-            />
-          </Drawer.Group>
-        ) : (
-          <Drawer.Group>
-            <Drawer.Screen
-              name="Login"
-              component={user.isFetching ? LoadingScreen : Login}
-              options={{
-                DrawerIcon: ({focused, color, size}) => (
-                  <Icon
-                    name="login"
-                    color={focused ? '#03272e' : 'black'}
-                    size={focused ? 20 : 15}
-                  />
-                ),
-              }}
-            />
-            <Drawer.Screen
-              name="Register"
-              component={user.isFetching ? LoadingScreen : Register}
-              options={{
-                DrawerIcon: ({focused, color, size}) => (
-                  <Icon
-                    name="enter"
+                    name="tool"
                     color={focused ? '#03272e' : 'black'}
                     size={focused ? 20 : 15}
                   />

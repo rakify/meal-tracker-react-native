@@ -56,9 +56,11 @@ export default function UpdateUser() {
     <>
       <Header />
       <ScrollView style={styles.container}>
-        <View style={styles.title}>
-          <Text style={styles.titleText}>Update Information</Text>
-        </View>
+        {user.members.length > 0 && (
+          <View style={styles.title}>
+            <Text style={styles.titleText}>Update Information</Text>
+          </View>
+        )}
 
         {/*No members means new user*/}
         {user.members.length === 0 && !next && (
@@ -68,7 +70,7 @@ export default function UpdateUser() {
                 style={{
                   letterSpacing: 1,
                   color: '#0f6a94',
-                  fontSize: 30,
+                  fontSize: 25,
                 }}>
                 WELCOME AND HOPE YOU ARE THE MANAGER SINCE YOU'RE REGISTERING.
                 {'\n\n'}
@@ -179,6 +181,7 @@ const styles = StyleSheet.create({
     color: '#0f6a94',
     marginRight: 20,
     fontWeight: 'bold',
+    fontSize: 20,
   },
   inputField: {
     marginBottom: 10,
