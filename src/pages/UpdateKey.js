@@ -4,6 +4,7 @@ import {View, Text, StyleSheet, ScrollView, Alert} from 'react-native';
 import Button from '../utils/Button';
 import Header from '../components/Header';
 import {updateKey} from './../redux/apiCalls';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 export default function UpdateKey() {
   const user = useSelector(state => state.user.currentUser);
@@ -46,10 +47,11 @@ const styles = StyleSheet.create({
   titleText: {
     color: 'black',
     fontWeight: 'bold',
-    fontSize: 15,
+    fontSize: 25,
     textDecorationLine: 'underline',
   },
   caption: {
+    fontSize: 20,
     marginBottom: 20,
     alignSelf: 'center',
     fontWeight: 'bold',

@@ -1,18 +1,23 @@
 import Icon from 'react-native-vector-icons/AntDesign';
-import React from 'react';
+import React, {useState} from 'react';
 import {
   ScrollView,
   StyleSheet,
   Text,
   View,
   ActivityIndicator,
+  TextInput,
 } from 'react-native';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
+import {updateUser} from '../redux/apiCalls';
+import Button from '../utils/Button';
 
 const FinalReport = ({admin}) => {
+  const dispatch = useDispatch();
   const entries = useSelector(state => state.data.entries);
   const loading = useSelector(state => state.data.isFetching);
   const user = useSelector(state => state.user.currentUser);
+  const [key, setKey] = useState('');
 
   let allMeals = 0,
     allSpent = 0,
@@ -43,6 +48,12 @@ const FinalReport = ({admin}) => {
     }
   }
   let mealRate = allSpent / allMeals;
+
+  const deleteMember = id => {
+    let members = [...user.members];
+    members.splice(id, 1);
+    updateUser(user._id, {members: members, admin_key: key}, dispatch);
+  };
 
   return (
     <>
@@ -120,7 +131,10 @@ const FinalReport = ({admin}) => {
                       <Text style={styles.THtext}>Reserved</Text>
                     </View>
                     <View style={styles.TH2}>
-                      <Text style={styles.THtext}>Due(-) | Extra(+)</Text>
+                      <Text style={styles.THtext}>Remaining</Text>
+                    </View>
+                    <View style={styles.TH2}>
+                      <Text style={styles.THtext}>Action</Text>
                     </View>
                   </View>
                 </View>
@@ -144,6 +158,28 @@ const FinalReport = ({admin}) => {
                             ).toFixed(2)}
                       </Text>
                     </View>
+                    {initialMeals[i] === 0 && initialReserved[i] === 0 ? (
+                      <View style={styles.TD2}>
+                        <View style={styles.inputFieldRow}>
+                          <TextInput
+                            style={styles.input}
+                            placeholder="Key"
+                            onChangeText={value => setKey(value)}
+                            placeholderTextColor="green"
+                          />
+                          <Button
+                            style={styles.button}
+                            title={'✘'}
+                            color="#1eb900"
+                            onPressFunction={deleteMember(j)}
+                          />
+                        </View>
+                      </View>
+                    ) : (
+                      <View style={styles.TD2}>
+                        <Text>VIP</Text>
+                      </View>
+                    )}
                   </View>
                 </View>
               </ScrollView>
@@ -174,7 +210,7 @@ const styles = StyleSheet.create({
   title2Text: {
     color: 'black',
     fontWeight: 'bold',
-    fontSize: 15,
+    fontSize: 25,
     textDecorationLine: 'underline',
   },
   titleText: {
@@ -213,7 +249,7 @@ const styles = StyleSheet.create({
   },
   TH2: {
     width: 100,
-    height: 20,
+    height: 40,
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#697e94',
@@ -222,10 +258,34 @@ const styles = StyleSheet.create({
   },
   TD2: {
     width: 100,
-    height: 20,
+    height: 40,
     justifyContent: 'space-between',
     alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: '#f1f8ff',
+  },
+  input: {
+    fontSize: 15,
+    width: 55,
+    height: 35,
+    marginTop: 2.5,
+    marginBottom: 2.5,
+    paddingLeft: 10,
+    marginRight: 5,
+    borderWidth: 0.5,
+    borderColor: '#555',
+  },
+  button: {
+    fontSize: 15,
+    width: 30,
+    height: 35,
+    marginTop: 2.5,
+    marginBottom: 2.5,
+    backgroundColor: 'red',
+  },
+  inputFieldRow: {
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
   text: {margin: 6},
 });

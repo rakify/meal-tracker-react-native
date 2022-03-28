@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {addEntry} from '../redux/apiCalls';
-import {updateKey} from './../redux/apiCalls';
 import {
   View,
   Text,
@@ -70,23 +69,29 @@ const EntryForm = () => {
       <View style={styles.title}>
         <Text style={styles.titleText}>Submit Todays Entry</Text>
       </View>
-      <View style={styles.inputField}>
-        <Text style={styles.caption}>Money Spent</Text>
+      <View style={styles.inputFieldRow}>
         <TextInput
           keyboardType="number-pad"
           style={styles.input}
-          placeholder="0"
+          placeholder="Money Spent"
           onChangeText={value => handleChange('spent', value)}
           placeholderTextColor="green"
         />
-      </View>
-      <View style={styles.inputField}>
-        <Text style={styles.caption}>Reserved Money</Text>
         <TextInput
           keyboardType="number-pad"
           style={styles.input}
-          placeholder="0"
+          placeholder="Reserved Money"
           onChangeText={value => handleChange('reserved', value)}
+          placeholderTextColor="green"
+        />
+      </View>
+
+      <View style={styles.inputFieldRow}>
+        <TextInput
+          keyboardType="number-pad"
+          style={styles.input}
+          placeholder="Manager Key*"
+          onChangeText={value => handleChange('admin_key', value)}
           placeholderTextColor="green"
         />
       </View>
@@ -114,7 +119,6 @@ const EntryForm = () => {
           ))}
         </View>
       )}
-
       <Pressable
         style={styles.selectField}
         onPress={() => setShowMeals(!showMeals)}>
@@ -139,17 +143,6 @@ const EntryForm = () => {
           ))}
         </View>
       )}
-
-      <View style={styles.inputField}>
-        <Text style={styles.caption}>Manager Key</Text>
-        <TextInput
-          keyboardType="number-pad"
-          style={styles.input}
-          placeholder="0000"
-          onChangeText={value => handleChange('admin_key', value)}
-          placeholderTextColor="red"
-        />
-      </View>
       <Button
         style={{alignSelf: 'center'}}
         title={'Submit'}
@@ -163,7 +156,6 @@ const EntryForm = () => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-    flex: 1,
   },
   title: {
     margin: 20,
@@ -172,7 +164,7 @@ const styles = StyleSheet.create({
   titleText: {
     color: 'black',
     fontWeight: 'bold',
-    fontSize: 15,
+    fontSize: 25,
     textDecorationLine: 'underline',
   },
   caption: {
@@ -183,12 +175,20 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginLeft: 20,
   },
+  inputFieldRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 10,
+    marginLeft: 10,
+    marginRight: 20,
+  },
   input: {
     fontSize: 15,
-    width: 200,
+    width: 150,
     height: 35,
     paddingLeft: 10,
     paddingRight: 10,
+    marginLeft: 10,
     borderWidth: 0.5,
     borderColor: '#555',
   },

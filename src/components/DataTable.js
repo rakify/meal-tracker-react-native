@@ -1,11 +1,28 @@
-import React from 'react';
-import {View, StyleSheet, Text, ScrollView} from 'react-native';
-import {useSelector} from 'react-redux';
+import React, {useState} from 'react';
+import {
+  View,
+  StyleSheet,
+  Text,
+  ScrollView,
+  TextInput,
+  Alert,
+} from 'react-native';
+import {useSelector, useDispatch} from 'react-redux';
+import {deleteEntry} from '../redux/apiCalls';
+import Button from './../utils/Button';
 
 const DataTable = ({month}) => {
+  const dispatch = useDispatch();
   const user = useSelector(state => state.user.currentUser);
   const entries = useSelector(state => state.data.entries);
+  const [key, setKey] = useState('');
+  const d = new Date();
+  const date = d.getDate();
 
+  const deleteHandler = id => {
+    deleteEntry(id, key, dispatch).then(res => Alert.alert('Result', res));
+    setKey('');
+  };
   return (
     <>
       <View style={styles.title}>
@@ -40,6 +57,9 @@ const DataTable = ({month}) => {
               <View style={styles.TH}>
                 <Text style={styles.THtext}>Daily Total</Text>
               </View>
+              <View style={styles.TH}>
+                <Text style={styles.THtext}>Action</Text>
+              </View>
             </View>
           </View>
 
@@ -66,6 +86,28 @@ const DataTable = ({month}) => {
                 <View style={styles.TD}>
                   <Text>{item?.totalMeals}</Text>
                 </View>
+                {date === item.date || date - 1 === item.date ? (
+                  <View style={styles.TD}>
+                    <View style={styles.inputFieldRow}>
+                      <TextInput
+                        style={styles.input}
+                        placeholder="Key"
+                        onChangeText={value => setKey(value)}
+                        placeholderTextColor="green"
+                      />
+                      <Button
+                        style={styles.button}
+                        title={'🗑️'}
+                        color="#1eb900"
+                        onPressFunction={() => deleteHandler(item._id)}
+                      />
+                    </View>
+                  </View>
+                ) : (
+                  <View style={styles.TD}>
+                    <Text></Text>
+                  </View>
+                )}
               </View>
             </View>
           ))}
@@ -88,7 +130,7 @@ const styles = StyleSheet.create({
   titleText: {
     color: 'black',
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 25,
   },
   container: {
     backgroundColor: '#fff',
@@ -115,11 +157,36 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   TD: {
+    borderLeftWidth: 1,
+    borderColor: '#ffffff',
     width: 100,
     height: 50,
     justifyContent: 'space-evenly',
     alignItems: 'center',
     backgroundColor: '#f1f8ff',
+  },
+  input: {
+    fontSize: 15,
+    width: 55,
+    height: 35,
+    marginTop: 2.5,
+    marginBottom: 2.5,
+    paddingLeft: 10,
+    marginRight: 5,
+    borderWidth: 0.5,
+    borderColor: '#555',
+  },
+  button: {
+    fontSize: 15,
+    width: 30,
+    height: 35,
+    marginTop: 2.5,
+    marginBottom: 2.5,
+    backgroundColor: 'red',
+  },
+  inputFieldRow: {
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
   text: {margin: 6},
 });
