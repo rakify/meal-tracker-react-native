@@ -56,12 +56,7 @@ export default function UpdateUser() {
     <>
       <Header />
       <ScrollView style={styles.container}>
-        {user.members.length > 0 && (
-          <View style={styles.title}>
-            <Text style={styles.titleText}>Update Information</Text>
-          </View>
-        )}
-
+       
         {/*No members means new user*/}
         {user.members.length === 0 && !next && (
           <>
@@ -166,6 +161,8 @@ export default function UpdateUser() {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
+    flex:1,
+    paddingTop:10,
   },
   title: {
     margin: 20,

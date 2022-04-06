@@ -1,7 +1,7 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {login} from '../redux/apiCalls';
 import React, {useState} from 'react';
-import {View, StyleSheet, TextInput, Alert, Text} from 'react-native';
+import {View, StyleSheet, TextInput, Alert, Text, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard} from 'react-native';
 import Header from '../components/Header';
 import Button from '../utils/Button';
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -13,6 +13,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
   const LoginHandler = () => {
+  
     (username.length < 3 || password.length < 3) &&
       Alert.alert(
         'Warning',
@@ -30,7 +31,8 @@ const Login = () => {
   return (
     <>
       <Header />
-      <View style={styles.body}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <KeyboardAvoidingView style={styles.body}>
         <View style={styles.inputField}>
           <TextInput
             style={styles.input}
@@ -73,7 +75,14 @@ const Login = () => {
           color="#1eb900"
           onPressFunction={LoginHandler}
         />
+      <View style={styles.footer}>
+        <Text style={styles.footerText}>
+          [Try features without creating a new account using a demo account,
+          enter 'demo' as username and password.]
+        </Text>
       </View>
+      </KeyboardAvoidingView>
+      </TouchableWithoutFeedback>
     </>
   );
 };
@@ -100,6 +109,14 @@ const styles = StyleSheet.create({
     width: 280,
     paddingLeft: 20,
     paddingRight: 20,
+  },
+  footer:{
+  alignItems:'center',
+  margin:10,
+  borderColor:'green',
+  },
+  footerText: {
+  color:'green',
   },
 });
 

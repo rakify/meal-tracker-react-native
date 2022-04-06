@@ -120,12 +120,6 @@ const DataTable = ({month}) => {
 const styles = StyleSheet.create({
   title: {
     alignSelf: 'center',
-    borderColor: '#2263a5',
-    borderWidth: 1,
-    borderTopLeftRadius: 10,
-    borderBottomRightRadius: 10,
-    margin: 5,
-    backgroundColor: 'white',
   },
   titleText: {
     color: 'black',
@@ -135,6 +129,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
     paddingBottom: 100,
+    flex:1,
   },
   TBODY: {},
   TR: {

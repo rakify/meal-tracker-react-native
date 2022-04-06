@@ -1,5 +1,5 @@
 import Icon from 'react-native-vector-icons/AntDesign';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -12,11 +12,13 @@ import {useSelector, useDispatch} from 'react-redux';
 import {updateUser} from '../redux/apiCalls';
 import Button from '../utils/Button';
 
-const FinalReport = ({admin}) => {
+const FinalReport = () => {
   const dispatch = useDispatch();
   const entries = useSelector(state => state.data.entries);
   const loading = useSelector(state => state.data.isFetching);
-  const user = useSelector(state => state.user.currentUser);
+  const user = useSelector(state => state.user.currentUser);  
+
+  const[makeDelete, setMakeDelete] = useState('');
   const [key, setKey] = useState('');
 
   let allMeals = 0,
@@ -61,9 +63,6 @@ const FinalReport = ({admin}) => {
         <ActivityIndicator />
       ) : (
         <ScrollView style={styles.container}>
-          <View style={styles.title2}>
-            <Text style={styles.title2Text}>Final Calculation</Text>
-          </View>
           <ScrollView
             horizontal
             contentContainerStyle={{
@@ -158,8 +157,8 @@ const FinalReport = ({admin}) => {
                             ).toFixed(2)}
                       </Text>
                     </View>
-                    {initialMeals[i] === 0 && initialReserved[i] === 0 ? (
-                      <View style={styles.TD2}>
+                    {initialMeals[i] === 0 && initialReserved[i] === 0 && makeDelete ?
+                     <View style={styles.TD2}>
                         <View style={styles.inputFieldRow}>
                           <TextInput
                             style={styles.input}
@@ -175,7 +174,7 @@ const FinalReport = ({admin}) => {
                           />
                         </View>
                       </View>
-                    ) : (
+                     : (
                       <View style={styles.TD2}>
                         <Text>VIP</Text>
                       </View>
@@ -195,30 +194,19 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
     alignSelf: 'center',
+    paddingTop: 10,
+    flex:1,
   },
   container2: {
-    margin: 10,
-  },
-  title2: {
-    alignSelf: 'center',
-    margin: 7,
+    //margin: 10,
   },
   title: {
     alignSelf: 'flex-start',
     marginRight: 5,
   },
-  title2Text: {
-    color: 'black',
-    fontWeight: 'bold',
-    fontSize: 25,
-    textDecorationLine: 'underline',
-  },
   titleText: {
     color: 'black',
-    fontWeight: '500',
     fontSize: 17,
-    fontStyle: 'italic',
-    marginLeft: 10,
   },
   TBODY: {},
   TR: {

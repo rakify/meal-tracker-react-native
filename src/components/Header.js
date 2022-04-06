@@ -40,9 +40,6 @@ const Header = ({from}) => {
       )}
       {user && (
         <>
-          <View style={styles.user}>
-            <Text style={styles.text}>Meal Tracker</Text>
-          </View>
           <View style={styles.subbody}>
             <View>
               <Text>Today is {month + ' ' + date + ', ' + year}</Text>
@@ -65,11 +62,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#f8f8f8',
-    paddingBottom: 20,
   },
   image: {
-    width: 300,
-    height: 220,
+    width: 200,
+    height: 100,
   },
   user: {
     backgroundColor: '#87CEEB',
@@ -86,6 +82,8 @@ const styles = StyleSheet.create({
     height: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    paddingRight:10,
+    paddingLeft:10,
   },
   right: {
     flexDirection: 'row',

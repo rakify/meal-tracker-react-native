@@ -10,8 +10,8 @@ import {
   ScrollView,
   Alert,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/AntDesign';
 import Button from './../utils/Button';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 const EntryForm = () => {
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ const EntryForm = () => {
     reserved: 0,
     by: '',
     date: date,
-    admin_key: '',
+    admin_key: 0,
   });
   const [showMeals, setShowMeals] = useState(false);
   const [showBy, setShowBy] = useState(false);
@@ -36,6 +36,12 @@ const EntryForm = () => {
     initialMeals[user.members[i]] = 0;
   }
   const [meals, setMeals] = useState({...initialMeals});
+
+  const handleChangeNum = (name, value) => {
+    value === ''
+      ? setInputs({...inputs, [name]: 0})
+      : setInputs({...inputs, [name]: value});
+  };
 
   const handleChange = (name, value) => {
     setInputs({...inputs, [name]: value});
@@ -53,9 +59,20 @@ const EntryForm = () => {
       totalMeals += meals[i];
     }
 
-    if (inputs.by === '') {
-      Alert.alert('Warning', 'By field is required.');
+    if (inputs.reserved !== 0 && inputs.by === '') {
+      Alert.alert(
+        'Warning',
+        'You can not reserve money without selecting anyone in by field.',
+      );
+    } else if (
+      inputs.spent === 0 &&
+      inputs.reserved === 0 &&
+      totalMeals === 0
+    ) {
+      Alert.alert('Error', 'You can not add an empty record.');
     } else {
+      inputs.spent = /^\d+$/.test(inputs.spent) ? inputs.spent : 0;
+      inputs.reserve = /^\d+$/.test(inputs.reserved) ? inputs.reserved : 0;
       addEntry({...inputs, meals, totalMeals}, dispatch).then(res =>
         res.request.status !== 200
           ? Alert.alert('Oops', res.request.responseText.slice(1, -1))
@@ -66,39 +83,43 @@ const EntryForm = () => {
 
   return (
     <ScrollView style={styles.container}>
-      <View style={styles.title}>
-        <Text style={styles.titleText}>Submit Todays Entry</Text>
-      </View>
       <View style={styles.inputFieldRow}>
+         <Text style={styles.caption}>Spent Money</Text>
         <TextInput
           keyboardType="number-pad"
           style={styles.input}
-          placeholder="Money Spent"
-          onChangeText={value => handleChange('spent', value)}
-          placeholderTextColor="#0f6a94"
-        />
-        <TextInput
-          keyboardType="number-pad"
-          style={styles.input}
-          placeholder="Reserved Money"
-          onChangeText={value => handleChange('reserved', value)}
-          placeholderTextColor="#0f6a94"
+          placeholder='0'
+          placeholderTextColor='#0f6a94'
+          onChangeText={value => handleChangeNum('spent', value)}
         />
       </View>
 
       <View style={styles.inputFieldRow}>
+          <Text style={styles.caption}>Reserved Money</Text>
         <TextInput
           keyboardType="number-pad"
           style={styles.input}
-          placeholder="Manager Key*"
-          onChangeText={value => handleChange('admin_key', value)}
-          placeholderTextColor="#0f6a94"
+          placeholder='0'
+          placeholderTextColor='#0f6a94'
+          onChangeText={value => handleChangeNum('reserved', value)}
+        />
+      </View>
+
+      <View style={styles.inputFieldRow}>
+          <Text style={styles.caption}>Manager Key*</Text>
+        <TextInput
+          keyboardType="number-pad"
+          style={styles.input}
+          placeholder='0'
+          placeholderTextColor='#0f6a94'
+          onChangeText={value => handleChangeNum('admin_key', value)}
         />
       </View>
 
       <Pressable style={styles.selectField} onPress={() => setShowBy(!showBy)}>
         <Text style={styles.caption}>
-          <Icon name="form" size={20} color="#0f6a94" /> By * (Selected:{' '}
+          <Icon name="form" size={20} color="#0f6a94" /> By{' '}
+          {inputs.reserved !== 0 && '*'}(Selected:
           {inputs.by !== '' ? inputs.by : 'none'})
         </Text>
         <Icon
@@ -167,16 +188,8 @@ const EntryForm = () => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-  },
-  title: {
-    margin: 20,
-    alignSelf: 'center',
-  },
-  titleText: {
-    color: 'black',
-    fontWeight: 'bold',
-    fontSize: 25,
-    textDecorationLine: 'underline',
+    paddingTop: 10,
+    flex:1,
   },
   caption: {
     marginRight: 20,
@@ -189,20 +202,20 @@ const styles = StyleSheet.create({
   },
   inputFieldRow: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    alignItems:'center',
+    justifyContent:'space-between',
     marginBottom: 10,
-    marginLeft: 10,
+    marginLeft: 20,
     marginRight: 20,
   },
   input: {
     fontSize: 15,
     width: 150,
-    height: 35,
+    height: 45,
     paddingLeft: 10,
-    paddingRight: 10,
-    marginLeft: 10,
-    borderWidth: 0.5,
+    borderWidth: 0.2,
     borderColor: '#555',
+    marginRight: 10,
   },
   selectField: {
     flexDirection: 'row',

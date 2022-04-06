@@ -1,7 +1,8 @@
 import {useSelector} from 'react-redux';
 import {register} from '../redux/apiCalls';
 import React, {useState} from 'react';
-import {View, StyleSheet, TextInput, Alert, Text} from 'react-native';
+import {View, StyleSheet, TextInput, Alert, Text, TouchableWithoutFeedback, Keyboard,
+  KeyboardAvoidingView} from 'react-native';
 import Header from '../components/Header';
 import Button from '../utils/Button';
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -15,35 +16,34 @@ const Register = () => {
   const user = useSelector(state => state.user);
   const RegisterHandler = () => {
     //Validating user inputs
-    username.length <= 3
-      ? Alert.alert('Warning', 'Username must contain at least 4 characters.')
+    (!/^[a-zA-Z0-9_]+$/i.test(username))
+    ? Alert.alert('Error', 'Username can only contain underscore,letters and numbers.')
+    : username.length <= 3
+      ? Alert.alert('Error', 'Username must contain at least 4 characters.')
       : !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)
-      ? Alert.alert('Warning', 'Email address must be valid.')
+      ? Alert.alert('Error', 'Email address must be valid.')
       : password.length <= 3
-      ? Alert.alert('Warning', 'Password must contain at least 4 characters.')
+      ? Alert.alert('Error', 'Password must contain at least 4 characters.')
       : password !== confirmPassword
-      ? Alert.alert('Warning', 'Passwords does not match.')
-      : '';
-
-    username.length >= 4 &&
-      password.length >= 4 &&
-      email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/) &&
-      password === confirmPassword &&
+      ? Alert.alert('Error', 'Passwords does not match.')
+      : password === confirmPassword ?
       register({
         username: username,
         password: password,
         email: email,
       }).then(res =>
         res.request.status === 201
-          ? Alert.alert('Success', 'Account Creation Successful!')
-          : Alert.alert('Oops', 'Email or username is already in use.'),
-      );
+          ? Alert.alert('Success', 'Account creation successful!',{},{cancelable:true})
+          : Alert.alert('Oops', 'Account exists!\n Either email or username is already in use.',
+          {},{cancelable: true}),
+      ): "";
   };
 
   return (
     <>
       <Header />
-      <View style={styles.body}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <KeyboardAvoidingView style={styles.body}>
         <View style={styles.inputField}>
           <TextInput
             style={styles.input}
@@ -123,7 +123,8 @@ const Register = () => {
           color="#1eb900"
           onPressFunction={RegisterHandler}
         />
-      </View>
+      </KeyboardAvoidingView>
+      </TouchableWithoutFeedback>
     </>
   );
 };
