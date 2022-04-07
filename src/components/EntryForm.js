@@ -89,7 +89,7 @@ const EntryForm = () => {
           keyboardType="number-pad"
           style={styles.input}
           placeholder='0'
-          placeholderTextColor='#0f6a94'
+          placeholderTextColor='green'
           onChangeText={value => handleChangeNum('spent', value)}
         />
       </View>
@@ -100,7 +100,7 @@ const EntryForm = () => {
           keyboardType="number-pad"
           style={styles.input}
           placeholder='0'
-          placeholderTextColor='#0f6a94'
+          placeholderTextColor='green'
           onChangeText={value => handleChangeNum('reserved', value)}
         />
       </View>
@@ -110,8 +110,8 @@ const EntryForm = () => {
         <TextInput
           keyboardType="number-pad"
           style={styles.input}
-          placeholder='0'
-          placeholderTextColor='#0f6a94'
+          placeholder='0000'
+          placeholderTextColor='green'
           onChangeText={value => handleChangeNum('admin_key', value)}
         />
       </View>
@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
     width: 150,
     height: 45,
     paddingLeft: 10,
-    borderWidth: 0.2,
+    borderWidth: 0.5,
     borderColor: '#555',
     marginRight: 10,
   },

@@ -199,12 +199,11 @@ const styles = StyleSheet.create({
   },
   input: {
     fontSize: 15,
-    width: 200,
-    height: 35,
+    width: 150,
+    height: 45,
     paddingLeft: 10,
-    paddingRight: 10,
     borderWidth: 0.5,
     borderColor: '#555',
-    marginTop: 10,
+    marginRight: 10,
   },
 });
