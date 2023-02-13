@@ -30,7 +30,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 axios.defaults.withCredentials = true; //so its can set automatically the cookie i want
-axios.defaults.baseURL = 'https://eumess.herokuapp.com/api';
+axios.defaults.baseURL = 'https://eumess.vercel.app/api';
 
 export const logout = async dispatch => {
   dispatch(logoutStart());
